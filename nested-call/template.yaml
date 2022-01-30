@@ -1,0 +1,17 @@
+AWSTemplateFormatVersion: '2010-09-09'
+Transform: AWS::Serverless-2016-10-31
+Description: The nested stack 
+
+Resources:
+  NestedCall:
+    Type: AWS::CloudFormation::Stack
+    Properties:
+      TemplateURL: https://nested-stack-s3bucket-46gyoxm5nct4.s3.us-east-2.amazonaws.com/template.yaml
+      TimeoutInMinutes: '60'
+
+
+Outputs:
+  StackRef:
+    Value: !Ref NestedCall
+  OutputFromNestedStack:
+    Value: !GetAtt NestedCall.Outputs.BucketName
